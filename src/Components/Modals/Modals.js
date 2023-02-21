@@ -31,23 +31,28 @@ const ModalOverlay = (props) => {
       </header>
       <div className={classes.content}>
         {props.title === "images" &&
-          props.message.map((message, index) => {
-            return (
-              <div key={index} className={classes.image}>
-                <img
-                  onClick={expandImage(index)}
-                  id={index}
-                  src={message}
-                  height="200px"
-                  width="250px"
-                  alt="upload"
-                />
-                <button onClick={() => deleteHandler(index)}>
-                  delete image
-                </button>
-              </div>
-            );
+        ( <div className={classes.images}>
+          {props.message.map((message, index) => {
+            if(message!==null){
+              return (
+                <div key={index} className={classes.image}>
+                  <img
+                    onClick={expandImage(index)}
+                    id={index}
+                    src={message}
+                    height="200px"
+                    width="250px"
+                    alt="upload"
+                  />
+                  <button onClick={() => deleteHandler(index)}>
+                    delete image
+                  </button>
+                </div>
+              );
+            }
+           
           })}
+          </div>)}
         {props.title !== "" && props.title !== "images" && (
           <p className={classes.message}>{props.message}</p>
         )}

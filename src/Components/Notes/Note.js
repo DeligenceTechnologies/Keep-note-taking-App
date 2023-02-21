@@ -3,6 +3,7 @@ import classes from "./Notes.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RestoreIcon from "@mui/icons-material/Restore";
 import Modal from "../Modals/Modals";
+import CollectionsIcon from '@mui/icons-material/Collections';
 import { UserContext } from "../Context/AuthContext";
 import ListCom from "../List/ListCom";
 
@@ -48,7 +49,7 @@ function Note(props) {
     <>
       <div className={noteClasses}>
         <div onClick={openModal}>
-          <h5> {props.title}<span className={classes.mgl}>{props.title==="images" && (props.content.length!==1 ? "+"+(props.content.length-1):"")}</span></h5>
+          <h5> {props.title}<span className={classes.mgl}>{props.title==="images" && (props.content.length!==1 ? <CollectionsIcon/>:"")}</span></h5>
 
           {props.title === "images" && (
             <img
