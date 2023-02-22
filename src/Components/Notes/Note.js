@@ -11,10 +11,13 @@ function Note(props) {
   const [isClicked, setIsClicked] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const { userId } = UserContext();
+ 
   const data = useRef(null);
   data.current = isClicked;
 
   // const toShow = props.content.substring(0, 200) + "...";
+
+  
 
   async function deleteHandler() {
     setIsClicked(!data.current);
@@ -44,6 +47,7 @@ function Note(props) {
   const closeModal = () => {
     setIsModal(false);
   };
+  // console.log(props.title)
   const noteClasses = isClicked ? classes.deletednote : classes.note;
   return (
     <>
@@ -59,22 +63,18 @@ function Note(props) {
               alt="firebase-uploaded-file"
             ></img>
           )}
-          {/* // <a href={props.content}> {props.content.length <= 200 ? `${props.content}` : `${toShow}`}
-  //           {props.content.length > 200 && (
-  //             <button className={classes.readMore} onClick={openModal}>
-  //               Read more
-  //             </button>
-  //           )}</a>) :  */}
+         
 
           {props.title === "" && (
             <ol className={classes.list}>
-              {props.content.map((val, index) => {
-                return <ListCom key={index} text={val} />;
+              {props.content.map((item) => {
+              
+                return <ListCom key={item.id} text={item.text} isChecked={item.isChecked}  />;
               })}
             </ol>
           ) }
           
-          {props.title!=="" && props.title!=="images" &&
+          {props.title!=="images" &&props.title!=="" && (
             <p>
               {props.content.length <= 200
                 ? `${props.content}`
@@ -84,7 +84,7 @@ function Note(props) {
                   Read more
                 </button>
               )}
-            </p>
+            </p>)
           }
         </div>
         {!isClicked && (
@@ -103,7 +103,7 @@ function Note(props) {
         <Modal
           title={props.title}
           message={props.content}
-      id={props.id}
+       id={props.id}
           onConfirm={closeModal}
         ></Modal>
       )}
