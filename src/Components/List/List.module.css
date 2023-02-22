@@ -106,7 +106,17 @@
   outline: none;
  
 }
-
+.backIcon{
+background-color: white;
+  margin-bottom:55rem;
+  margin-left:5rem;
+border:none
+}
+.backIcon:hover{
+  background-color: #8566aa;
+  color:white;
+  border:black
+}
 .todo_style .deleteIcon:hover {
   background-color: transparent;
   color: crimson;

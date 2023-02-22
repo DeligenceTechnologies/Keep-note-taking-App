@@ -5,6 +5,7 @@ import ListCom from "./ListCom";
 import { UserContext } from "../Context/AuthContext";
 import AddIcon from "@mui/icons-material/Add";
 import Header from "../Header/Header";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate} from "react-router-dom"
 
 function List() {
@@ -12,6 +13,11 @@ function List() {
   const [newItem, setNewItem] = useState([]);
   const {userId} = UserContext();
 const navigation=useNavigate()
+
+const backHandler=()=>{
+  navigation("/home")
+}
+
 
   const listOfItems = () => {
     setNewItem((prevValue) => {
@@ -53,7 +59,11 @@ const navigation=useNavigate()
   return (
     <>
     <Header></Header>
+   
       <div className={classes.main_div}>
+      <button onClick={backHandler} className={classes.backIcon}>
+    <ArrowBackIcon/>
+    </button>
         <div className={classes.center_div}>
           <br />
           <input

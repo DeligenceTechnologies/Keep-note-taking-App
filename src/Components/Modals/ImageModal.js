@@ -1,25 +1,29 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import classes from "./Modals.module.css";
+import CloseIcon from "@mui/icons-material/Close";
+import { CloseButton } from "react-bootstrap";
 
 const Backdrop = (props) => {
   return <div className={classes.backdrop} onClick={props.onConfirm} />;
 };
 const ModalOverlay = (props) => {
   return (
-    <div className={`${classes.Card} ${classes.modal}`}>
-      <div className={classes.content}>
-        <img src={props.content[props.image]} alt="firebase-uploaad-expand" />
-      </div>
-      <footer className={classes.actions}>
+    <div className={`${classes.Card} ${classes.imageModal}`}>
+    <header className={classes.actions}>
         <button
-          className={classes.button}
+          className={classes.closebutton}
           onClick={props.onConfirm}
           type="button"
         >
-          Close
+         <CloseButton/>
         </button>
-      </footer>
+      </header>
+      <div className={classes.content}>
+        
+        <img src={props.image} alt="firebase-uploaad-expand" height="100%" width="100%" />
+      </div>
+      
     </div>
   );
 };
@@ -33,11 +37,10 @@ const ImageModal = (props) => {
       )}
       {ReactDOM.createPortal(
         <ModalOverlay
-        content={props.content}
-          image={props.image}
+       image={props.image}
           onConfirm={props.onConfirm}
         />,
-        document.getElementById("overlay-root")
+        document.getElementById("imageOverlay-root")
       )}
     </React.Fragment>
   );

@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import classes from "./Image.module.css";
 import { storage } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { UserContext } from "../Context/AuthContext";
 
@@ -13,6 +14,10 @@ function Image() {
 
   const [progress, setProgress] = useState(0);
   const navigation = useNavigate();
+
+  const backHandler=()=>{
+    navigation("/home")
+  }
 
   const onSelectFile = (e) => {
     for (let i = 0; i < e.target.files.length; i++) {
@@ -37,6 +42,11 @@ function Image() {
     <div>
       <Header></Header>
       <section className={classes.ImageSection}>
+      <button onClick={backHandler} className={classes.backIcon}>
+    <ArrowBackIcon/>
+    </button>
+    <br/>
+    <br/>
         <progress value={progress} max="100" />
 
         <label className={classes.ImageLabel}>

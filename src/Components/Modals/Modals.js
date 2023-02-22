@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import ReactDOM from "react-dom";
 
 import classes from "./Modals.module.css";
@@ -11,10 +11,19 @@ const Backdrop = (props) => {
 
 const ModalOverlay = (props) => {
   const { userId } = UserContext();
+  const [imageModal,setImageModal]=useState(false);
+  const [image,setImage]=useState(null);
 
-  const expandImage = (image) => {
-    return <ImageModal content={props.message} image={image} />;
+  const expandImage = (index) => {
+    // console.log(index)
+    setImageModal(true)
+    // console.log(props.message)
+   setImage((prevState)=>prevState=props.message[index])
+  //  console.log(image)
   };
+  const closeModal=()=>{
+    setImageModal(false)
+  }
 
   const deleteHandler = (index) => {
     fetch(
@@ -25,6 +34,8 @@ const ModalOverlay = (props) => {
     );
   };
   return (
+    <> 
+       {imageModal && <ImageModal image={image} onConfirm={closeModal}></ImageModal>}
     <div className={`${classes.Card} ${classes.modal}`}>
       <header className={classes.header}>
         <h2>{props.title}</h2>
@@ -37,7 +48,7 @@ const ModalOverlay = (props) => {
               return (
                 <div key={index} className={classes.image}>
                   <img
-                    onClick={expandImage(index)}
+                    onClick={()=>expandImage(index)}
                     id={index}
                     src={message}
                     height="200px"
@@ -75,12 +86,16 @@ const ModalOverlay = (props) => {
         </button>
       </footer>
     </div>
+    </>
+
   );
 };
 
 const Modal = (props) => {
   return (
+   
     <React.Fragment>
+       
       {ReactDOM.createPortal(
         <Backdrop onConfirm={props.onConfirm} />,
         document.getElementById("backdrop-root")

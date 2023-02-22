@@ -66,9 +66,18 @@
     z-index: 100; 
     /* overflow: hidden; */
   }
-  .message{
+  .imageModal {
+    position:absolute;
     
+
+    top: 10vh;
+    left: 10%;
+    width: 100%;
+    word-wrap: break-word;
+    z-index: 200; 
+    /* overflow: hidden; */
   }
+ 
   .header {
     background: #4f005f;
     padding: 1rem;
@@ -102,7 +111,16 @@
     padding: 0.25rem 1rem;
     cursor: pointer;
   }
-  
+  .closebutton {
+    font: inherit;
+    border: 1px solid #4f005f;
+    background:white;
+    color: #4f005f;
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+  }
+
+
   .button:hover,
   .button:active {
     background: #741188;
@@ -123,5 +141,12 @@
     .modal {
       left: calc(50% - 25rem);
       width: 60rem;
+    }
+   
+  }
+  @media (min-width: 768px) {
+    .imageModal {
+      left: calc(50% - 40rem);
+      width: 80rem;
     }
   }

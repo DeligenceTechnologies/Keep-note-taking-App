@@ -22,7 +22,18 @@
   padding-top: 0.5rem;
 }
 
-
+.backIcon{
+  background-color: white;
+    /* margin-bottom:55rem; */
+    /* margin-left:5rem; */
+    margin-right: 20rem;
+  border:none
+  }
+  .backIcon:hover{
+    background-color: #8566aa;
+    color:white;
+    border:black
+  }
 
 img {
   padding: 0;
