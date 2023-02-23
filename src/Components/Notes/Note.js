@@ -65,12 +65,26 @@ function Note(props) {
           )}
          
 
-          {props.title === "" && (
+          {props.title === "" && props.content.length>5 &&  (
             <ol className={classes.list}>
+              
+              {props.content.slice(0,5).map((item) => {
+              
+                return <ListCom key={item.id} text={item.text} isChecked={item.isChecked}  />;
+              })} 
+               <button className={classes.readMore} onClick={openModal}>
+                  Read more
+                </button>
+            </ol>
+          ) }
+           {props.title === "" && props.content.length<=5 &&  (
+            <ol className={classes.list}>
+              
               {props.content.map((item) => {
               
                 return <ListCom key={item.id} text={item.text} isChecked={item.isChecked}  />;
-              })}
+              })} 
+              
             </ol>
           ) }
           
