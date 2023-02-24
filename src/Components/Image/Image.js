@@ -153,7 +153,7 @@ function Image() {
                 <div key={image} className={classes.image}>
                   <img src={image} height="200" alt="upload" />
                   <button onClick={() => deleteHandler(image)}>
-                    delete image
+                    delete
                   </button>
                 </div>
               );

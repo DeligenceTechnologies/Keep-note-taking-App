@@ -3,6 +3,7 @@ import Note from "./Note";
 import classes from "./Notes.module.css";
 
 function NotesList(props) {
+
   return (
     <ul className={classes.noteList}>
       {props.notes.map((note, index) => (

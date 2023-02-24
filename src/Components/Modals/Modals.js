@@ -13,8 +13,11 @@ const ModalOverlay = (props) => {
   const { userId } = UserContext();
   const [imageModal, setImageModal] = useState(false);
   const [image, setImage] = useState(null);
+  const [content, setContent] = useState(false);
+  const [description, setDescription] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const contentRef = useRef();
+  const descriptionRef = useRef();
   // var content = props.message;
   const toggleChecked = (id) => {
     const promises = [];
@@ -48,7 +51,6 @@ const ModalOverlay = (props) => {
     });
   };
 
-  // console.log(props.id)
   const expandImage = (index) => {
     setImageModal(true);
 
@@ -59,17 +61,20 @@ const ModalOverlay = (props) => {
   };
 
   const contentChangeHandler = () => {
-   
     setIsEdit(true);
-   
-   // content = contentRef.current.value;
+    setContent(true)
+  };
+  const descriptionChangeHandler = () => {
+    setIsEdit(true);
+    setDescription(true)
   };
 
   const saveHandler = () => {
     const note = {
       id: props.id,
       title: props.title,
-      content: contentRef.current.value,
+      content: content ? contentRef.current.value : props.message,
+      description:description? descriptionRef.current.value:props.description,
     };
     fetch(
       `https://keep-clone-f178f-default-rtdb.firebaseio.com/users/${userId}/notes/${props.id}.json`,
@@ -80,9 +85,9 @@ const ModalOverlay = (props) => {
           "Content-Type": "application/json",
         },
       }
-    ).then(()=>{
-      props.onConfirm()
-    })
+    ).then(() => {
+      props.onConfirm();
+    });
   };
 
   const deleteHandler = (index) => {
@@ -120,7 +125,7 @@ const ModalOverlay = (props) => {
                           alt="upload"
                         />
                         <button onClick={() => deleteHandler(index)}>
-                          delete image
+                          delete
                         </button>
                       </div>
                     );
@@ -129,7 +134,12 @@ const ModalOverlay = (props) => {
               </div>
               <br />
               <br />
-              <p>{props.description}</p>
+              <textarea
+                ref={descriptionRef}
+                onChange={descriptionChangeHandler}
+                className={classes.message}
+                defaultValue={props.description}
+              ></textarea>
             </>
           )}
           {props.title !== "" && props.title !== "images" && (
@@ -137,7 +147,7 @@ const ModalOverlay = (props) => {
               ref={contentRef}
               onChange={contentChangeHandler}
               className={classes.message}
-               defaultValue={props.message}
+              defaultValue={props.message}
             ></textarea>
           )}
           {props.title === "" && (

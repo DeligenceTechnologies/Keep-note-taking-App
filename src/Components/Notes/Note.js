@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+
 import classes from "./Notes.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RestoreIcon from "@mui/icons-material/Restore";
@@ -15,33 +16,31 @@ function Note(props) {
   const data = useRef(null);
   data.current = isClicked;
 
-  // const toShow = props.content.substring(0, 200) + "...";
-
   async function deleteHandler() {
     setIsClicked(!data.current);
+    setTimeout(async () => {
+      if (data.current) {
+        await fetch(
+          `https://keep-clone-f178f-default-rtdb.firebaseio.com/users/${userId}/notes/${props.id}.json`,
+          {
+            method: "DELETE",
+          }
+        ).then(()=>{
+          setIsClicked(false)
+        })
+      }
+    }, 10000);
   }
 
   const undoHandler = async () => {
     setIsClicked(!data.current);
   };
 
-  setTimeout(async () => {
-    if (data.current) {
-      await fetch(
-        `https://keep-clone-f178f-default-rtdb.firebaseio.com/users/${userId}/notes/${props.id}.json`,
-        {
-          method: "DELETE",
-        }
-      );
-    }
-  }, 10000);
-
   const openModal = () => {
     setIsModal(true);
   };
   const closeModal = () => {
     setIsModal(false);
-    
   };
   // console.log(props.title)
   const noteClasses = isClicked ? classes.deletednote : classes.note;

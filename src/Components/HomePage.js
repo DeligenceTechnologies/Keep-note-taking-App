@@ -43,7 +43,7 @@ const {userId} = UserContext();
       setError(error.message);
     }
   });
-  //useEffect(()=>{console.log(note.id)},[])
+ 
   useEffect(() => {
     fetchNoteHandler();
   }, [fetchNoteHandler]);

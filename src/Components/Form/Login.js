@@ -1,4 +1,4 @@
-import { useState, } from "react";
+import { useState, useEffect} from "react";
 import GoogleButton from "react-google-button";
 import { Alert } from "react-bootstrap";
 import classes from "./Form.module.css";
@@ -18,7 +18,7 @@ const Login = () => {
   const [number, setNumber] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { googleSignIn, phoneSignIn, logIn } = UserContext();
+  const { googleSignIn, phoneSignIn,user, logIn } = UserContext();
 
   const LoginHandler = async (e) => {
     e.preventDefault();
@@ -107,11 +107,11 @@ const Login = () => {
       console.log(error.message);
     }
   };
-  // useEffect(() => {
-  //   if (user != null) {
-  //     navigate("/home");
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user != null) {
+      navigate("/home");
+    }
+  }, [user]);
 
 
   return (
