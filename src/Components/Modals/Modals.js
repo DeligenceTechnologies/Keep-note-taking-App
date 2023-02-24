@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import ListCom from "../List/ListCom";
 import classes from "./Modals.module.css";
@@ -13,7 +13,9 @@ const ModalOverlay = (props) => {
   const { userId } = UserContext();
   const [imageModal, setImageModal] = useState(false);
   const [image, setImage] = useState(null);
-
+  const [isEdit, setIsEdit] = useState(false);
+  const contentRef = useRef();
+  // var content = props.message;
   const toggleChecked = (id) => {
     const promises = [];
     let updatedItems = props.message.map((item) => {
@@ -56,6 +58,33 @@ const ModalOverlay = (props) => {
     setImageModal(false);
   };
 
+  const contentChangeHandler = () => {
+   
+    setIsEdit(true);
+   
+   // content = contentRef.current.value;
+  };
+
+  const saveHandler = () => {
+    const note = {
+      id: props.id,
+      title: props.title,
+      content: contentRef.current.value,
+    };
+    fetch(
+      `https://keep-clone-f178f-default-rtdb.firebaseio.com/users/${userId}/notes/${props.id}.json`,
+      {
+        method: "PUT",
+        body: JSON.stringify(note),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(()=>{
+      props.onConfirm()
+    })
+  };
+
   const deleteHandler = (index) => {
     fetch(
       `https://keep-clone-f178f-default-rtdb.firebaseio.com/users/${userId}/notes/${props.id}/content/${index}.json`,
@@ -64,7 +93,7 @@ const ModalOverlay = (props) => {
       }
     );
   };
-
+  //console.log(props.description)
   return (
     <>
       {imageModal && (
@@ -76,30 +105,40 @@ const ModalOverlay = (props) => {
         </header>
         <div className={classes.content}>
           {props.title === "images" && (
-            <div className={classes.images}>
-              {props.message.map((message, index) => {
-                if (message !== null) {
-                  return (
-                    <div key={index} className={classes.image}>
-                      <img
-                        onClick={() => expandImage(index)}
-                        id={index}
-                        src={message}
-                        height="200px"
-                        width="250px"
-                        alt="upload"
-                      />
-                      <button onClick={() => deleteHandler(index)}>
-                        delete image
-                      </button>
-                    </div>
-                  );
-                }
-              })}
-            </div>
+            <>
+              <div className={classes.images}>
+                {props.message.map((message, index) => {
+                  if (message !== null) {
+                    return (
+                      <div key={index} className={classes.image}>
+                        <img
+                          onClick={() => expandImage(index)}
+                          id={index}
+                          src={message}
+                          height="200px"
+                          width="250px"
+                          alt="upload"
+                        />
+                        <button onClick={() => deleteHandler(index)}>
+                          delete image
+                        </button>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+              <br />
+              <br />
+              <p>{props.description}</p>
+            </>
           )}
           {props.title !== "" && props.title !== "images" && (
-            <p className={classes.message}>{props.message}</p>
+            <textarea
+              ref={contentRef}
+              onChange={contentChangeHandler}
+              className={classes.message}
+               defaultValue={props.message}
+            ></textarea>
           )}
           {props.title === "" && (
             <ol className={classes.list}>
@@ -117,6 +156,16 @@ const ModalOverlay = (props) => {
           )}
         </div>
         <footer className={classes.actions}>
+          {isEdit && (
+            <button
+              className={classes.button}
+              onClick={saveHandler}
+              type="button"
+            >
+              Save
+            </button>
+          )}
+          &nbsp;
           <button
             className={classes.button}
             onClick={props.onConfirm}
@@ -142,6 +191,7 @@ const Modal = (props) => {
           id={props.id}
           title={props.title}
           message={props.message}
+          description={props.description}
           onConfirm={props.onConfirm}
         />,
         document.getElementById("overlay-root")

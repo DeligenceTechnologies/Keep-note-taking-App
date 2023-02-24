@@ -12,6 +12,10 @@
   
    
   }
+   .message{
+    border: none;
+    outline: none;
+  } 
   .images {
     display: flex;
     flex-direction: row;

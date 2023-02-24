@@ -12,21 +12,7 @@
   padding: 1rem;
   box-shadow: 0 1px 18px 10px rgba(191, 173, 173, 0.25);
 }
-/* .previewImage {
-   max-width: 70rem;
-   width: 90%; 
-  width: auto;
-display: flex;
-  height: auto;
-  margin: auto;
-  margin-bottom: 5rem;
-  position: relative;
-  background-color: white;
-  color: darkgray;
-  border-radius: 14px;
-  padding: 1rem;
-  box-shadow: 0 1px 18px 10px rgba(191, 173, 173, 0.25);
-} */
+
 .createNotes input {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 30px;
@@ -105,7 +91,8 @@ display: flex;
   border: none;
 }
 .list {
-  margin-top: 30px;
+  margin:0;
+  /* margin-top: 30px; */
 }
 .list li {
   padding-left: 0px;
@@ -113,8 +100,8 @@ display: flex;
   font-size: 20px;
   font-weight: 500;
 
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
   color: #8566aa;
   text-transform: capitalize;
   list-style: none;

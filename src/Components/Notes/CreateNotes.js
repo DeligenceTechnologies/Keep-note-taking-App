@@ -12,7 +12,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 function CreateNotes(props) {
   const [error, setError] = useState(undefined);
   const [addForm, setAddForm] = useState(true);
-  
+
   const titleRef = useRef();
   const contentRef = useRef();
   const navigation = useNavigate();
@@ -24,7 +24,6 @@ function CreateNotes(props) {
       id: Date.now() + Math.random(),
       title: titleRef.current.value,
       content: contentRef.current.value,
-  
     };
 
     if (note.title.trim().length === 0 || note.content.trim().length === 0) {
@@ -58,10 +57,6 @@ function CreateNotes(props) {
     // setList(true);
   };
 
-  
-
- 
-
   return (
     <>
       {error && (
@@ -85,7 +80,10 @@ function CreateNotes(props) {
           )}
           {!addForm && (
             <>
-              <button onClick={addFormHandler}  className={classes.closeButton+ ' ' + classes.button} >
+              <button
+                onClick={addFormHandler}
+                className={classes.closeButton + " " + classes.button}
+              >
                 <CloseIcon></CloseIcon>
               </button>
 
@@ -98,21 +96,18 @@ function CreateNotes(props) {
               <br />
               <br />
 
-              
-                <textarea
-                  rows="5"
-                  name="content"
-                  ref={contentRef}
-                  placeholder="Write a note..."
-                ></textarea>
-              
+              <textarea
+                rows="5"
+                name="content"
+                ref={contentRef}
+                placeholder="Write a note..."
+              ></textarea>
 
               <div className={classes.tooltip}>
                 <button
                   type="button"
                   onClick={uploadImage}
-                  className={classes.imageButton+ ' ' + classes.button}
-                  
+                  className={classes.imageButton + " " + classes.button}
                 >
                   <ImageIcon></ImageIcon>
                   <span className={classes.tooltiptext}>Add image</span>
@@ -122,14 +117,16 @@ function CreateNotes(props) {
                 <button
                   type="button"
                   onClick={addList}
-                  className={classes.listButton+ ' ' + classes.button}
-                 
+                  className={classes.listButton + " " + classes.button}
                 >
                   <ListAltIcon></ListAltIcon>
                   <span className={classes.tooltiptext}>Add list</span>
                 </button>
               </div>
-              <button onClick={addEvent} className={classes.addButton+ ' ' + classes.button}>
+              <button
+                onClick={addEvent}
+                className={classes.addButton + " " + classes.button}
+              >
                 <AddIcon></AddIcon>
               </button>
             </>
