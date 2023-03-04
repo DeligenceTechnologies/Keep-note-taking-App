@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import ReactDOM from "react-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ListCom from "../List/ListCom";
 import classes from "./Modals.module.css";
 import { UserContext } from "../Context/AuthContext";
@@ -124,9 +125,12 @@ const ModalOverlay = (props) => {
                           width="250px"
                           alt="upload"
                         />
-                        <button onClick={() => deleteHandler(index)}>
-                          delete
-                        </button>
+                         <button
+            //className={classes.deleteIcon + " " + classes.button}
+            onClick={() => deleteHandler(index)}
+          >
+            <DeleteIcon />
+          </button>
                       </div>
                     );
                   }

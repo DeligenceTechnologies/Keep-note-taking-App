@@ -40,13 +40,11 @@ display: block;
     border: none;
     color: white;
     display: none;
-    border-radius: 40%;
-    background-color: lightcoral;
+    border-radius: 50%;
+    background-color:  #8566aa;
   }
   
-  .image button:hover {
-    background-color: red;
-  }
+  
   
   .image p {
     padding: 0 0.5rem;
