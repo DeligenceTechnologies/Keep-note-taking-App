@@ -12,8 +12,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [flag, setFlag] = useState(false);
   const [otp, setOtp] = useState("");
-  // const [minutes, setMinutes] = useState(3);
-  // const [seconds, setSeconds] = useState(30);
+  const [minutes, setMinutes] = useState(3);
+  const [seconds, setSeconds] = useState(30);
   const [result, setResult] = useState("");
   const [number, setNumber] = useState("");
   const [error, setError] = useState("");
@@ -25,6 +25,7 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
+      
 
       navigate("/home");
     } catch (e) {
@@ -48,26 +49,26 @@ const Login = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (seconds > 0) {
-  //       setSeconds(seconds - 1);
-  //     }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
 
-  //     if (seconds === 0) {
-  //       if (minutes === 0) {
-  //         clearInterval(interval);
-  //       } else {
-  //         setSeconds(59);
-  //         setMinutes(minutes - 1);
-  //       }
-  //     }
-  //   }, 1000);
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }
+      }
+    }, 1000);
 
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [seconds]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [seconds]);
 
   const cancelOtp = () => {
     setFlag(false);
@@ -84,19 +85,14 @@ const Login = () => {
     }
   };
 
-  // const resendOtp = async() => {
-  //   setError((prevState)=>prevState="")
-  //   setMinutes(3);
-  //   setSeconds(30);
-  //    cancelOtp()
-  //   // try {
-  //   //   const response = await phoneSignIn(number);
-  //   //   setResult(response);
-  //   //   setFlag(true);
-  //   // } catch (err) {
-  //   //   setError(err.message);
-  //   // }
-  // };
+  const resendOtp = async() => {
+   
+    setError((prevState)=>prevState="")
+    setMinutes(3);
+    setSeconds(30);
+     cancelOtp()
+  
+  };
 
   const handleGoogleSignIn = async (event) => {
     event.preventDefault();
@@ -158,10 +154,10 @@ const Login = () => {
                 value={number}
                 onChange={setNumber}
               />
-              <div className={classes.actions} id="recaptcha-container" />
+           
             </div>
             <div className={classes.actions}>
-              <button onClick={LoginWithOtp}>Get OTP</button>
+              <button id="sign-in-phone" onClick={LoginWithOtp}>Get OTP</button>
             </div>
           </div>
 
@@ -185,7 +181,7 @@ const Login = () => {
               <button style={{margin:"auto"}} onClick={cancelOtp}>Cancel</button>
             </div>
             <br></br>
-            {/* <div>
+            <div>
               {seconds > 0 || minutes > 0 ? (
                 <p>
                   Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
@@ -201,8 +197,8 @@ const Login = () => {
                 >
                   Resend OTP
                 </button>
-              </div> */}
-            {/* </div> */}
+              </div> 
+             </div>
           </div>
           {!flag && (
             <div>
