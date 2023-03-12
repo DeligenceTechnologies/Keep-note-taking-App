@@ -65,7 +65,7 @@ function Note(props) {
                 width="200px"
                 alt="firebase-uploaded-file"
               ></img>
-              <p>{props.imageTitle}</p>
+              {/* <p>{props.image_title}</p> */}
             </>
           )}
 
@@ -135,6 +135,7 @@ function Note(props) {
           title={props.title}
           message={props.content}
           description={props.description}
+          image_title={props.image_title}
           id={props.id}
           onConfirm={closeModal}
         ></Modal>

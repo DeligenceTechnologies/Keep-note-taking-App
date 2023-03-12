@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Header from "../Header/Header";
 import classes from "./Image.module.css";
 import { storage } from "../../firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { UserContext } from "../Context/AuthContext";
@@ -13,7 +13,9 @@ function Image() {
   const [previewImage, setPreviewImage] = useState([]);
   const [progress, setProgress] = useState(0);
   const descriptionRef = useRef();
+  const titleRef = useRef();
   const navigation = useNavigate();
+  const location = useLocation();
 
   const backHandler = () => {
     navigation("/home");
@@ -47,6 +49,24 @@ function Image() {
         </button>
         <br />
         <br />
+        <div className={classes.createNotes}>
+          <input
+            type="text"
+            name="title"
+            ref={titleRef}
+            defaultValue={location.state.image_title}
+            placeholder="Title"
+          ></input>
+          <br />
+          <br />
+          <textarea
+            rows="5"
+            name="content"
+            defaultValue={location.state.image_description}
+            ref={descriptionRef}
+            placeholder="add a description "
+          ></textarea>
+        </div>
         <progress value={progress} max="100" />
 
         <label className={classes.ImageLabel}>
@@ -63,14 +83,7 @@ function Image() {
           />
         </label>
         <br />
-        <div className={classes.createNotes}>
-        <textarea
-          rows="5"
-          name="content"
-          ref={descriptionRef}
-          placeholder="add a description "
-        ></textarea>
-      </div>
+
         {previewImage.length > 0 &&
           (previewImage.length > 10 ? (
             <p className={classes.error}>
@@ -122,6 +135,7 @@ function Image() {
                     let note = {
                       id: Date.now() + Math.random(),
                       title: "images",
+                      image_title: titleRef.current.value,
                       description: descriptionRef.current.value,
                       content: content,
                     };
@@ -152,16 +166,12 @@ function Image() {
               return (
                 <div key={image} className={classes.image}>
                   <img src={image} height="200" alt="upload" />
-                  <button onClick={() => deleteHandler(image)}>
-                    delete
-                  </button>
+                  <button onClick={() => deleteHandler(image)}>delete</button>
                 </div>
               );
             })}
         </div>
       </section>
-     
-     
     </div>
   );
 }

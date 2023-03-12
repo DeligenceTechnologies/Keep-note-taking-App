@@ -33,7 +33,8 @@ const {userId} = UserContext();
           id: key,
           title: data[key].title,
           content: data[key].content,
-          description:data[key].description
+          description:data[key].description,
+          image_title:data[key].image_title
         });
       }
 

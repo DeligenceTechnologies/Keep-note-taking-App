@@ -6,6 +6,7 @@ import classes from "./Notes.module.css";
 import { useNavigate } from "react-router-dom";
 import ImageIcon from "@mui/icons-material/Image";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+
 //import { Button } from "@mui/material";
 //import ListCom from "../List/ListCom";
 
@@ -49,7 +50,12 @@ function CreateNotes(props) {
   };
 
   const uploadImage = () => {
-    navigation("/image");
+    navigation("/image", {
+      state: {
+        image_title: titleRef.current.value,
+        image_description: contentRef.current.value,
+      },
+    });
   };
 
   const addList = () => {

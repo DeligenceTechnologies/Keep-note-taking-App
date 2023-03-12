@@ -76,6 +76,7 @@ const ModalOverlay = (props) => {
       title: props.title,
       content: content ? contentRef.current.value : props.message,
       description:description? descriptionRef.current.value:props.description,
+      
     };
     fetch(
       `https://keep-clone-f178f-default-rtdb.firebaseio.com/users/${userId}/notes/${props.id}.json`,
@@ -138,6 +139,7 @@ const ModalOverlay = (props) => {
               </div>
               <br />
               <br />
+              <p><b>{props.image_title}</b></p>
               <textarea
                 ref={descriptionRef}
                 onChange={descriptionChangeHandler}
@@ -206,6 +208,7 @@ const Modal = (props) => {
           title={props.title}
           message={props.message}
           description={props.description}
+          image_title={props.image_title}
           onConfirm={props.onConfirm}
         />,
         document.getElementById("overlay-root")

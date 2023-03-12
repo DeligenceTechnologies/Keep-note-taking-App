@@ -11,6 +11,7 @@ function NotesList(props) {
           key={index}
           id={note.id}
           description={note.description}
+          image_title={note.image_title}
           title={note.title}
           content={note.content}
         ></Note>
